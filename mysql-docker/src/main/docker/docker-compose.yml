@@ -12,7 +12,7 @@ services:
     ports:
      - 3306:3306
     volumes:
-     - tfe-datavolume:/var/lib/mysql
+     - /data:/var/lib/mysql
   web:
     image: kushguptacse/mysql-docker
     depends_on:
@@ -21,6 +21,4 @@ services:
      - 9096:9096
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysqldb:3306/schema?useSSL=false'
-volumes:
-  tfe-datavolume:
   
