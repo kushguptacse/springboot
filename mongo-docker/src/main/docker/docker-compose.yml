@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongodb-container
+    restart: always
+    image: mongo
+    ports:
+     - 27017:27017
+  web:
+    image: kushguptacse/mongo-docker
+    depends_on:
+     - mongo
+    ports:
+     - 8080:8080
