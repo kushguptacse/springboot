@@ -17,7 +17,7 @@ import sample.rabbitmqconsumerdocker.config.ApplicationConfigReader;
 public class RabbitmqConsumerDockerApplication {
 
 	@Autowired
-	private ApplicationConfigReader applicationConfigReader;
+	private ApplicationConfigReader applicationConfigReader; 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(RabbitmqConsumerDockerApplication.class, args);
