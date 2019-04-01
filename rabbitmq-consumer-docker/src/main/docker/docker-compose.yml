@@ -1,0 +1,22 @@
+version: '3'
+services:
+   rabbitmq:
+      image: rabbitmq:3.7.13-management
+      container_name: rabbitmq-container
+      ports:
+         - "5672:5672"
+         - "15672:15672"
+         - "5671:5671"
+      restart: always
+   web-consumer:
+      image: kushguptacse/rabbitmq-consumer-docker
+      depends_on:
+         - rabbitmq
+      ports:
+         - 8098:8098
+   web-producer:
+      image: kushguptacse/rabbitmq-producer-docker
+      depends_on:
+         - rabbitmq
+      ports:
+         - 8097:8097         
