@@ -8,6 +8,8 @@ services:
          - "15672:15672"
          - "5671:5671"
       restart: always
+      volumes:
+         - $HOME/rabbitdata:/var/lib/rabbitmq
    web-consumer:
       image: kushguptacse/rabbitmq-consumer-docker
       depends_on:
@@ -19,4 +21,4 @@ services:
       depends_on:
          - rabbitmq
       ports:
-         - 8097:8097         
+         - 8097:8097
