@@ -1,0 +1,65 @@
+version: '3.1'
+services:
+   mysql:
+      restart: always
+      environment:
+         MYSQL_ROOT_PASSWORD: India@1234
+         MYSQL_DATABASE: schema
+         MYSQL_USER: user
+         MYSQL_PASSWORD: password
+      image: mysql:5.6
+      ports:
+         - 3306:3306
+      volumes:
+         - /data:/var/lib/mysql
+      deploy:
+         replicas: 1
+      networks:
+         - database_net
+   rabbitmq:
+      image: rabbitmq:3.7.13-management
+      ports:
+         - "5672:5672"
+         - "15672:15672"
+         - "5671:5671"
+      restart: always
+      volumes:
+         - $HOME/rabbitdata:/var/lib/rabbitmq
+      networks:
+         - rabbit_net
+      deploy:
+         replicas: 1
+   web-consumer:
+      image: kushguptacse/rabbitmq-mysql-docker
+      depends_on:
+         - rabbitmq
+         - mysql
+      environment:
+         SPRING_RABBITMQ_HOST: rabbitmq
+         SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/schema?useSSL=false'  
+      ports:
+         - 8098:8098
+      networks:
+         - rabbit_net
+         - database_net
+      deploy:
+         replicas: 3
+   web-producer:
+      image: kushguptacse/rabbitmq-producer-docker
+      environment:
+         SPRING_RABBITMQ_HOST: rabbitmq
+      depends_on:
+         - rabbitmq
+      networks:
+         - rabbit_net
+      ports:
+         - 8097:8097
+      deploy:
+         replicas: 1
+networks:
+   rabbit_net:
+      driver: overlay
+   database_net:
+      driver: overlay 
+         
+         
