@@ -1,55 +1,53 @@
 # Spring boot + spring data + mongo + maven fabric8 docker plugin
 
 # Steps to be followed  if want to run docker container in single node- 
-<br><br>
+
 Just open terminal with sudo -s
-<br>
 1. cd src/main/docker
-<br>
+
 2. docker-compose up
-<br>
+
 3. it will download latest mongo-docker image.
-<br>
+
 Now goto browser and type "http://localhost:8080" to test.
-<br>
+
 
 # Steps to be followed  if want to run docker service in swarm cluster- 
 
-<br>
+
 Just open terminal with sudo -s
-<br>
+
 1. cd src/main/docker
-<br>
+
 2. docker stack deploy -c docker-compose.yml <stack_name>
-<br>
+
 3. it will download latest mongo-docker image.
-<br>
+
 4. it will run the services mentioned in compose file in any node that is present in the cluster.
 
-<br><br>
+
 # Few useful docker swarm commands  to be run from manager node- 
-<br>
+
 1. docker swarm init  - start the swarm node and role would be manager.
-<br>
+
 2. docker swarm join-token worker/manager - it will generate command by which other node can join it by typing that command from there terminal.
-<br>
+
 3. docker node ls -  list all the nodes and status and id.
-<br>
+
 4.docker node rm <node_id> - remove that node from cluster. so the service running on that node will now run on some other node in cluster.
-<br>
+
 5.docker service ls - list all the services along with replicas and id's
-<br>
+
 6.docker service rm <service_id> - remove service running on the node. it does not remove node.
-<br>
+
 7.docker service ps <service-name> - to know on what nodes that service is running.
-<br>
+
 8.docker service logs -f <service-name> - to display logs of that service interactively.
 
-<br>
-<br>
+
 Now goto browser and type "http://ipOfNodeService:8080" to test.
-<br>
+
 GIT code - https://github.com/kushguptacse/springboot 
-<br>
+
 project - mongo-docker
-<br>
+
