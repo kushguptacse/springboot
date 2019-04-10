@@ -1,14 +1,26 @@
 version: '3'
 services:
   mongo:
-    container_name: mongodb-container
     restart: always
     image: mongo
     ports:
      - 27017:27017
+    networks:
+     - mongo_net
+    deploy:
+     replicas: 1
   web:
     image: kushguptacse/mongo-docker
     depends_on:
      - mongo
     ports:
      - 8080:8080
+    environment:
+      SPRING_DATA_MONGODB_HOST: 'mongo'
+    networks:
+     - mongo_net
+    deploy:
+     replicas: 2
+networks:
+  mongo_net:
+    driver: overlay
