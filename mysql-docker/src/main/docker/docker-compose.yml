@@ -27,7 +27,7 @@ services:
     networks:
      - mysql_net
     deploy:
-     replicas: 2
+     replicas: 3
 networks:
   mysql_net:
     driver: overlay
