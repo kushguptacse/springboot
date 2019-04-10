@@ -20,7 +20,7 @@ public class MessageDetailService {
 		sendMessage(ApplicationConfigReader.getApp1Exchange(), ApplicationConfigReader.getApp1RoutingKey(), model);
 	}
 
-	private void sendMessage(String exchange, String routingKey, Object data) {
+	private void sendMessage(String exchange, String routingKey, DataModel data) {
 		rabbitTemplate.convertAndSend(exchange, routingKey, data);
 	}
 

@@ -2,7 +2,6 @@ version: '3'
 services:
    rabbitmq:
       image: rabbitmq:3.7.13-management
-      container_name: rabbitmq-container
       ports:
          - "5672:5672"
          - "15672:15672"
@@ -10,15 +9,34 @@ services:
       restart: always
       volumes:
          - $HOME/rabbitdata:/var/lib/rabbitmq
+      deploy:
+         replicas: 1
+      networks:
+         - rabbit_net
    web-consumer:
       image: kushguptacse/rabbitmq-consumer-docker
       depends_on:
          - rabbitmq
       ports:
          - 8098:8098
+      environment:
+         SPRING_RABBITMQ_HOST: rabbitmq
+      deploy:
+         replicas: 2
+      networks:
+         - rabbit_net
    web-producer:
       image: kushguptacse/rabbitmq-producer-docker
       depends_on:
          - rabbitmq
       ports:
          - 8097:8097
+      environment:
+         SPRING_RABBITMQ_HOST: rabbitmq
+      deploy:
+         replicas: 2
+      networks:
+         - rabbit_net
+networks:
+   rabbit_net:
+      driver: overlay

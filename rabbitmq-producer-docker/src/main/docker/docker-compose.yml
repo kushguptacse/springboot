@@ -2,7 +2,6 @@ version: '3'
 services:
    rabbitmq:
       image: rabbitmq:3.7.13-management
-      container_name: rabbitmq-container
       ports:
          - "5672:5672"
          - "15672:15672"
@@ -14,3 +13,5 @@ services:
          - rabbitmq
       ports:
          - 8097:8097
+      environment:
+         SPRING_RABBITMQ_HOST: rabbitmq
