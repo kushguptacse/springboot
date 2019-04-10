@@ -27,5 +27,5 @@ public class RestControllerSample {
 	public DataModel getById(@PathVariable String id) {
 		return messageDetailService.getData(Long.valueOf(id));
 	}
-	
+	 
 }
