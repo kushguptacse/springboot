@@ -1,0 +1,4 @@
+From java:8
+VOLUME /tmp
+ADD maven/${fileName}.jar ${fileName}.jar
+ENTRYPOINT ["java","-jar","/${fileName}.jar"]
