@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mysql:
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: India@1234
+      MYSQL_DATABASE: schema
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    image: mysql:5.6
+    ports:
+     - 3306:3306
+    volumes:
+     - /data:/var/lib/mysql
+    networks:
+     - mysql_net
+    deploy:
+     replicas: 1
+  web:
+    image: kushguptacse/mysql-docker-secret
+    depends_on:
+     - mysql
+    ports:
+     - 9096:9096
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/schema?useSSL=false'
+      SPRING_DATASOURCE_USERNAME: 'user'
+      SPRING_DATASOURCE_PASSWORD: 'password'
+    networks:
+     - mysql_net
+    deploy:
+     replicas: 3
+networks:
+  mysql_net:
+    driver: overlay
