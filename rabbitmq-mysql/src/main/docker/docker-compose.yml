@@ -32,8 +32,8 @@ services:
    web-consumer:
       image: kushguptacse/rabbitmq-mysql-docker
       depends_on:
-         - rabbitmq
          - mysql
+         - rabbitmq
       environment:
          SPRING_RABBITMQ_HOST: rabbitmq
          SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/schema?useSSL=false'  
