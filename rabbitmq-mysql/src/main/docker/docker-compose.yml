@@ -43,7 +43,7 @@ services:
          - rabbit_net
          - database_net
       deploy:
-         replicas: 3
+         replicas: 2
    web-producer:
       image: kushguptacse/rabbitmq-producer-docker
       environment:

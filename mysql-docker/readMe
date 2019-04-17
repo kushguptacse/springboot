@@ -1,0 +1,57 @@
+# Spring boot + spring data + mysql + maven fabric8 plugin + swarm
+
+# Steps to be followed  if want to run docker container in single node- 
+
+Just open terminal with sudo -s
+
+1. cd src/main/docker
+
+2. docker-compose up
+
+3. it will download latest mysql-docker image.
+
+Now goto browser and type "http://localhost:9096" to test.
+
+
+# Steps to be followed  if want to run docker service in swarm cluster- 
+
+
+Just open terminal with sudo -s
+
+1. cd src/main/docker
+
+2. docker stack deploy -c docker-compose.yml <stack_name>
+
+3. it will download latest mysql-docker image.
+
+4. it will run the services mentioned in compose file in any node that is present in the cluster.
+
+
+# Few useful docker swarm commands  to be run from manager node- 
+
+1. docker swarm init  - start the swarm node and role would be manager.
+
+2. docker swarm join-token worker/manager - it will generate command by which other node can join it by typing that command from there terminal.
+
+3. docker node ls -  list all the nodes and status and id.
+
+4.docker node rm <node_id> - remove that node from cluster. so the service running on that node will now run on some other node in cluster.
+
+5.docker service ls - list all the services along with replicas and id's
+
+6.docker service rm <service_id> - remove service running on the node. it does not remove node.
+
+7.docker service ps <service-name> - to know on what nodes that service is running.
+
+8.docker service logs -f <service-name> - to display logs of that service interactively.
+
+
+
+Now goto browser and type "http://ipOfNodeService:9096" to test.
+
+GIT code - https://github.com/kushguptacse/springboot 
+
+project - mysql-docker
+
+
+
